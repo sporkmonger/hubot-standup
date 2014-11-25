@@ -41,7 +41,6 @@ module.exports = (robot) ->
   standup = new Standup robot
 
   robot.respond /standup$/, (msg) ->
-    console.log('STANDUP!')
     for own key, user of robot.brain.data.users
       task = standup.last user
       dateString = if task && task.timestamp
@@ -51,7 +50,7 @@ module.exports = (robot) ->
         else
           "at #{new Date(task.timestamp)}"
       else
-        "never"
+        "not yet"
 
       descString = if task && task.description
         task.description
@@ -61,7 +60,6 @@ module.exports = (robot) ->
       msg.send "#{user.name}: #{descString} (#{dateString})"
 
   robot.respond /standup (.+)/, (msg) ->
-    console.log('STANDUP w/ TASK!')
     user = msg.message.user
     standup.add user, msg.match[1]
     msg.send "#{user.name} is now '#{msg.match[1]}'"
