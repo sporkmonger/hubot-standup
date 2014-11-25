@@ -1,0 +1,38 @@
+{
+  "name": "hubot-standup",
+  "description": "A hubot script that tracks what users are working on",
+  "version": "0.1.0",
+  "author": "Bob Aman <bob@sporkmonger.com>",
+  "license": "Apache 2.0",
+  "keywords": [
+    "hubot",
+    "hubot-scripts",
+    "hubot-standup",
+    "standup"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bitpesa/hubot-standup.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitpesa/hubot-standup/issues"
+  },
+  "dependencies": {
+    "coffee-script": "~1.6",
+    "timeago": "^0.1.0"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "sinon-chai": "*",
+    "sinon": "*",
+    "grunt-mocha-test": "~0.7.0",
+    "grunt-release": "~0.6.0",
+    "matchdep": "~0.1.2",
+    "grunt-contrib-watch": "~0.5.3"
+  },
+  "main": "index.coffee",
+  "scripts": {
+    "test": "grunt test"
+  }
+}
