@@ -41,6 +41,7 @@ module.exports = (robot) ->
   standup = new Standup robot
 
   robot.respond /standup$/, (msg) ->
+    overdue = []
     for own key, user of robot.brain.data.users
       task = standup.last user
       dateString = if task && task.timestamp
@@ -52,12 +53,23 @@ module.exports = (robot) ->
       else
         "not yet"
 
-      descString = if task && task.description
-        task.description
-      else
-        'Not working on anything'
+      threeDays = 1000 * 60 * 60 * 24 * 3
+      if (task && task.description && task.timestamp &&
+          new Date(task.timestamp + threeDays) > new Date())
+        # If it's been less than three days, show the last status.
+        descString = if task && task.description
+          task.description
+        else
+          'Not working on anything'
 
-      msg.send "#{user.name}: #{descString} (#{dateString})"
+        msg.send "#{user.name}: #{descString} (#{dateString})"
+      else
+        overdue.push(user)
+    if overdue.length > 0
+      overdueList = ("@#{user.name}" for user in overdue).join(', ')
+      setTimeout(->
+        msg.send "#{overdueList}: Please update your status."
+      , 1000)
 
   robot.respond /standup (.+)/, (msg) ->
     user = msg.message.user

@@ -1,7 +1,7 @@
 {
   "name": "hubot-standup",
   "description": "A hubot script that tracks what users are working on",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "Bob Aman <bob@sporkmonger.com>",
   "license": "Apache 2.0",
   "keywords": [
