@@ -13,6 +13,7 @@
 
 config =
   use_timeago: process.env.HUBOT_STANDUP_TIMEAGO
+  use_slack: process.env.HUBOT_SLACK_TOKEN
 
 class Standup
   constructor: (@robot) ->
@@ -66,7 +67,10 @@ module.exports = (robot) ->
       else
         overdue.push(user)
     if overdue.length > 0
-      overdueList = ("@#{user.name}" for user in overdue).join(', ')
+      if config.use_slack?
+        overdueList = ("<@#{user.id}|#{user.name}>" for user in overdue).join(', ')
+      else
+        overdueList = ("@#{user.name}" for user in overdue).join(', ')
       setTimeout(->
         msg.send "#{overdueList}: Please update your status."
       , 1000)
